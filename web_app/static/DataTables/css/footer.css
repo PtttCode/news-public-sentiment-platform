@@ -1,0 +1,30 @@
+/*.footer{
+  height: 50px;
+  background: #333;
+}*/
+
+/* Sticky footer styles----------------- */
+html { position: relative; min-height: 100%; }
+.jumbotron{position: relative;}
+.footer { 
+	position: absolute; 
+	bottom: 0; 
+	width: 100%; 
+	height: 60px; /* Set the fixed height of the footer here */ 
+	line-height: 60px; /* Vertically center the text there */ 
+	background-color: #343a40; }
+.layui-form-label{
+	margin-bottom: 0px;
+}
+.layui-btn-normal{
+	margin-bottom: : 20px;
+	background-color: #1E9FFF;
+}
+.text-muted{
+	display: block;
+	text-align: center;
+	font-size: 12px;
+}
+/* Custom page CSS------------ */
+/* Not required for template or sticky footer method. */
+/*.container { width: auto; max-width: 680px; padding: 0 15px;}*/

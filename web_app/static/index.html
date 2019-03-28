@@ -1,0 +1,122 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>新闻舆情__v0.1</title>
+
+<!-- footer -->
+<link rel="stylesheet" type="text/css" href="DataTables/css/footer.css">
+<!-- Datatables -->
+<link rel="stylesheet" type="text/css" href="DataTables/DataTables-1.10.18/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="DataTables/css/jQuery-ui.css">
+<!-- Bootstrap ???SS -->
+<link rel="stylesheet" href="DataTables/css/bootstrap.min.css" >
+
+<!-- Bootstrap ???JavaScript --> 
+<script src="DataTables/js/jquery-3.2.1.slim.min.js"></script>
+<script src="DataTables/js/popper.min.js"></script>
+<script src="DataTables/js/bootstrap.min.js" ></script>
+<script src="DataTables/js/layer/layer.js"></script>
+<!-- jQuery -->
+<script type="text/javascript"  src="DataTables/js/jQuery.js"></script>
+<!-- Datatables -->
+<script type="text/javascript" charset="utf8" src="DataTables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+<script type="text/javascript">
+
+function content_alert(content)
+{
+  layer.open({
+    "area": ["800px", "600px"],
+    "content": content,
+    "shadeClose": true,
+    }); 
+}
+
+$(document).ready(function() {
+  $('#example').DataTable( {
+      "processing": true,
+      "serverSide": true,
+      "bAutoWidth": false,
+      "columnDefs": [
+          {
+              "targets": [1,4,5],
+              render: function (data, type, full, meta) {
+                  if (data) {
+                      if (data.constructor == Array && data.length > 10){
+                        return " <a href = 'javascript:void(0);' onclick = 'javascript:content_alert(\""+data+"\")' >"+data.slice(0, 5)+"...</a> ";
+                      }
+                      if (data.length > 20) {
+                          return " <a href = 'javascript:void(0);' onclick = 'javascript:content_alert(\""+data+"\")' >"+data.substr(0, 15)+"...</a> ";
+                      }else{
+                          return data;
+                      }
+                  }
+                  else {
+                          return "";
+                  }
+                }
+          }
+      ],
+      "ajax": {
+          "url": "/normal/tables",
+          "type": "get"
+      },
+      "columns": [
+          { "data": "title" },
+          { "data": "content"},
+          { "data": "sentiment", sWidth:"8%",},
+          { "data": "type", sWidth:"10%",},
+          { "data": "keywords"},
+          { "data": "source"},
+          { "data": "newsDate"},
+      ]
+  } );
+} );
+</script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top "><a href="#"> <img src="DataTables/image/main.png"  border="0" alt="新闻舆情" />
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active"> <a class="nav-link disabled" href="#"><b>主页</b><span class="sr-only">(current)</span></a> </li>
+      <li class="nav-item"> <a class="nav-link" href="nlp.html"><b>深度预测</b></a> </li>
+      <li class="nav-item"> <a class="nav-link" href="search.html"><b>搜索</b></a> </li>
+    </ul>
+  </div>
+</nav>
+<div class="jumbotron">
+  <table id="example" class="display" cellspacing="0" width="100%" data-searching="false">
+		<thead>
+			<tr>
+				<th>新闻标题</th>
+				<th>新闻内容</th>
+				<th>情感</th>
+				<th>新闻类型</th>
+				<th>关键词</th>
+				<th>来源</th>
+				<th>录入时间</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>新闻标题</th>
+        <th>新闻内容</th>
+        <th>情感</th>
+        <th>新闻类型</th>
+        <th>关键词</th>
+        <th>来源</th>
+        <th>录入时间</th>
+			</tr>
+		</tfoot>
+  </table>
+</div>
+<footer class="footer">
+<span class="text-muted">author:庞桐&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;workplace：毕业设计</span>
+</footer>
+</body>
+</html>

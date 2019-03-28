@@ -1,0 +1,19 @@
+$(document).ready(function() {
+    $('#example').DataTable( {
+        "processing": true,
+        "serverSide": true,
+		<!-- "bLengthChange": false, -->
+        "ajax": {
+            "url": "/test/login",
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "Name" },
+            { "data": "Position" },
+            { "data": "Office" },
+            { "data": "Age" },
+            { "data": "Start date" },
+            { "data": "Salary" }
+        ]
+    } );
+} );
