@@ -40,10 +40,11 @@ $(document).ready(function() {
       "processing": true,
       "serverSide": true,
       "bAutoWidth": false,
+      "ordering": false,
       "columnDefs": [
           {
               "targets": [1,4,5],
-              render: function (data, type, full, meta) {
+              "render": function (data, type, full, meta) {
                   if (data) {
                       if (data.constructor == Array && data.length > 10){
                         return " <a href = 'javascript:void(0);' onclick = 'javascript:content_alert(\""+data+"\")' >"+data.slice(0, 5)+"...</a> ";
@@ -57,7 +58,13 @@ $(document).ready(function() {
                   else {
                           return "";
                   }
-                }
+                },
+              "createdCell": function(td, cellData, rowData){
+                  if (rowData["sentiment"] == "负面"){
+                    $(td).parent().css({"background-color": " #FF7F50", "color": "black"});
+                    $(td.sorting_1).parent().css({"background-color": " #FF7F50", "color": "black"});
+                  }
+                }
           }
       ],
       "ajax": {

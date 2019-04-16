@@ -15,9 +15,7 @@ class MongoDB(object):
         res = list()
         for i in cursor:
             i["_id"] = str(i["_id"])
-            print(i)
             res.append(i)
-        print(res)
 
         return res
 
