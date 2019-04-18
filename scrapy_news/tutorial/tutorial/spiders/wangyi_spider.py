@@ -2,8 +2,6 @@
 import scrapy
 import re
 import sys
-import os
-import time
 import datetime
 import json
 import requests
@@ -80,63 +78,6 @@ class WY_Spider(scrapy.Spider):
     def rm_html_tag(content):
         content = re.sub("（原标题.*）", "", content)
         return re.sub(r"</?\w+[^>]*>", "", content)
-
-
-def run_spider(spider, filename):
-    # date = str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-    # filename = "news-"+date+".json"
-    cmdline.execute("scrapy crawl {} -o {}".format(spider, filename).split())
-
-
-
-def run():
-    spider_name = ["wy", "sina"]
-    for spider in spider_name:
-        date = str(datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
-        filename = "news_saver/news-{}-{}.json".format(spider, date)
-        p = Process(target=run_spider, args=(spider, filename,))
-        p.start()
-        p.join()
-
-        print(filename)
-        with open(filename, "r", encoding="utf-8") as f:
-            news = json.loads(f.read())
-        r = requests.post(url="http://localhost:8888/db/save", json={"news": news})
-        print(r.json())
-
-
-if __name__ == "__main__":
-
-    bs = BlockingScheduler()
-    bs.add_job(run, "interval", hours=1, max_instances=5)
-    print("start")
-    run()
-    bs.start()
-    # run()
-
-
-    # import json
-    # from elasticsearch import Elasticsearch
-    #
-    # es = Elasticsearch(hosts="localhost", port=9200)
-    # date = str(datetime.datetime.now().strftime("%Y-%m-%d-H"))
-    # with open("news-2019-03-14-22-30-00.json", "r", encoding="utf-8") as f:
-    #     data = json.loads(f.read())
-
-    # li = []
-    # for idx, v in enumerate(data):
-    #     v1 = {}
-    #     v1["_index"] = "test1"
-    #     v1["_type"] = "test1"
-    #     v1["_id"] = idx
-    #     dic = {}
-    #     dic["index"] = v1
-    #     li.append(dic)
-    #     li.append(v)
-    #
-    # a = es.bulk(index="test1", doc_type="test1", body=li)
-    # print(a)
-
 
 
 
