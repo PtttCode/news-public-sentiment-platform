@@ -1,0 +1,7 @@
+tornado
+ptttloggg
+elasticsearch
+pymongo
+sqlalchemy
+jieba
+numpy
