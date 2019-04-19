@@ -3,9 +3,13 @@ import tornado.web
 import tornado.httpserver
 import json
 import ptttloggg
+import os
 
 from sentiment_model import SentimentModel
 from type_model import TypeModel
+
+
+port = os.environ.get("WEB_PORT", 8585)
 
 
 def main():
@@ -13,7 +17,7 @@ def main():
     application = tornado.web.Application([(r"/nlp/sentiment", SentimentHandler),
                                            (r"/nlp/news_type", TypeHandler)])
     http_server = tornado.httpserver.HTTPServer(application)
-    http_server.bind(8585)
+    http_server.bind(port)
     http_server.start()
     print("-------------server start-----------------")
     tornado.ioloop.IOLoop.current().start()

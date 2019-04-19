@@ -1,4 +1,5 @@
 # -!- coding: utf-8 -!-
+import os
 import sys
 import datetime
 import json
@@ -9,6 +10,9 @@ sys.path.append("..")
 from apscheduler.schedulers.blocking import BlockingScheduler
 from scrapy import cmdline
 from multiprocessing import Process
+
+
+web_url = os.environ.get("WEB_URL", "http://localhost:8888/db/save")
 
 
 def run_spider(spider, filename):
@@ -29,7 +33,7 @@ def run():
         print(filename)
         with open(filename, "r", encoding="utf-8") as f:
             news = json.loads(f.read())
-        r = requests.post(url="http://localhost:8888/db/save", json={"news": news})
+        r = requests.post(url=web_url, json={"news": news})
         print(r.json())
 
 
