@@ -4,6 +4,7 @@ import os
 SIMHASH_NAME = "simhash"
 NEWS_NAME = "news"
 MYSQL_DB_NAME = "news_simhash"
+MYSQL_URL = os.environ.get("MYSQL_URL", "mysql+pymysql://root:123456@localhost/{}?charset=utf8mb4")
 
 # Simhash settings
 STOPWORDS_PATH = './data/stopwords.txt'
