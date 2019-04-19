@@ -3,7 +3,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.types import BigInteger
-from settings.settings import SIMHASH_NAME, NEWS_NAME
+from settings.settings import SIMHASH_NAME, NEWS_NAME, MYSQL_URL
 
 Base = declarative_base()
 
@@ -35,7 +35,7 @@ class News(Base):
 
 class Mysql(object):
     def __init__(self, db):
-        mysql_str = "mysql+pymysql://root:123456@localhost/{}?charset=utf8mb4".format(db)
+        mysql_str = MYSQL_URL.format(db)
         pool = create_engine(mysql_str, encoding='utf-8', echo=False,
                              pool_size=100, pool_recycle=10)
         self.conn = scoped_session(sessionmaker(bind=pool))
